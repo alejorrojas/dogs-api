@@ -9,7 +9,7 @@ export interface DogAttributes {
  }
  
 export interface DogInput extends Omit<DogAttributes, "id"> {}
-export interface DogOuput extends Required<DogAttributes> {
+export interface DogOutput extends Required<DogAttributes> {
     Temperaments?: TemperamentAttributes[]
 }
 
@@ -49,4 +49,19 @@ export interface DogAPI extends Omit<DogAttributes, "createdInDb" | "image"| "we
 
 export interface DogNormalize extends DogAttributes{
     temperament: string[]
+}
+
+
+export interface Errors {
+    url: string,
+    tooOld: string,
+    tooTall: string,
+    tooHeavy: string,
+    zero: string,
+    height: string,
+    weight: string,
+    negatives: string,
+    name: string,
+    allFields: string,
+
 }

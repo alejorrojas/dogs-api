@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express'
 import dbInit from './db/init.js';
-import routerDogs from './routes/index.js';
+import routes from './api/routes/index.js';
 
 dbInit()
 const app: Application = express()
@@ -19,9 +19,9 @@ app.use((req, res, next) => {
     next();
   });
   
-app.use("/dogs", routerDogs);
+app.use("/api", routes);
 app.use("/", async(req, res)=>{
-    res.status(200).json({message: "Working!"})
+    res.status(200).json({message: "Welcome to the dogs API!"})
 });
 
 try {

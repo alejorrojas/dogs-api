@@ -1,8 +1,9 @@
 import { DataTypes, Model } from "sequelize";
 import { DogTempsAttributes, DogTempsInput } from "../../types.js";
 import sequelizeConnection from "../config.js";
+import Dog from "./Dog.js";
+import Temperament from "./Temperament.js";
 
-import { Dog, Temperament } from "./index.js";
 
 
 //Tabla intermedia

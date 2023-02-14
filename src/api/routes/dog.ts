@@ -1,16 +1,14 @@
 import { Router } from "express";
 
-import * as controller from "../controllers/index.js";
+import * as controller from "../controllers/dog.controller.js";
 
 const routerDogs = Router();
 
 routerDogs.get("/", controller.dogs);
 
-// router.get("/dogs/:id", controller.dogsId);
+routerDogs.get("/:id", controller.dogsId);
 
-// router.get("/temperament", controller.temperaments);
-
-// router.post("/dog", controller.dogPost);
+routerDogs.post("/", controller.dogPost);
 
 // router.delete("/deleted/:id", controller.delete);
 
