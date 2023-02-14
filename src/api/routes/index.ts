@@ -1,6 +1,6 @@
 import { Router } from "express";
-import routerDogs from "./dog.js";
-import routerTemps from "./temperaments.js";
+import routerDogs from "./dog.router.js";
+import routerTemps from "./temperaments.router.js";
 
 const router = Router()
 

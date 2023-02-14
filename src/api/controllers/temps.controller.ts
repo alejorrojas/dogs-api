@@ -1,5 +1,5 @@
 import { Response } from "express";
-import * as service from "../../db/service/temps.service.js"
+import * as service from "../service/temps.service.js"
 
 export const temperaments = async (_req, res: Response) => {
     const temps = await service.getTemperaments();

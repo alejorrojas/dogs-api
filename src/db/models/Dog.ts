@@ -1,6 +1,7 @@
-import { Model, DataTypes } from "sequelize"
+import { Model, DataTypes, BelongsToManyCreateAssociationMixin } from "sequelize"
 import { DogAttributes, DogInput } from "../../types.js"
 import sequelizeConnection from "../config.js"
+import Temperament from "./Temperament.js"
 
 class Dog extends Model<DogAttributes, DogInput> implements DogAttributes {
     public id!: string
@@ -10,6 +11,9 @@ class Dog extends Model<DogAttributes, DogInput> implements DogAttributes {
     public weight!: string
     public life_span!: string
     public createdInDb!: boolean
+
+   declare addTemperament: BelongsToManyCreateAssociationMixin<Temperament>;
+
 }
 
 Dog.init({

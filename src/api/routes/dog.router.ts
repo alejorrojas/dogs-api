@@ -6,15 +6,14 @@ const routerDogs = Router();
 
 routerDogs.get("/", controller.dogs);
 
-routerDogs.get("/:id", controller.dogsId);
-
 routerDogs.post("/", controller.dogPost);
 
-// router.delete("/deleted/:id", controller.delete);
+routerDogs.get("/:id", controller.dogsId);
 
-// /* ENDPOINTS FILTRADOS PROPIOS*/
-// router.get("/created", controller.filterCreated);
+routerDogs.delete("/delete/:id", controller.dogDelete);
 
-// router.get("/api", controller.filterApi);
+routerDogs.get("/filter/created", controller.filterCreated);
+
+routerDogs.get("/filter/api", controller.filterApi);
 
 export default routerDogs

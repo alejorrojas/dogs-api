@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import Dog from "../../db/models/Dog.js";
 import DogTemps from "../../db/models/DogTemps.js";
 import Temperament from "../../db/models/Temperament.js";
-import * as service from "../../db/service/dog.service.js";
-import validate from "../../db/service/validation.service.js";
+import * as service from "../service/dog.service.js";
+import validate from "../service/validation.service.js";
 
 
 export const dogs = async (req: Request, res: Response) => {
@@ -14,7 +14,7 @@ export const dogs = async (req: Request, res: Response) => {
   
     if (name) {
       const dogFind = allDogs.filter((dog) =>
-        dog.name.toLowerCase().includes(name.toLowerCase())
+        dog.name.toLowerCase().startsWith(name.toLowerCase())
       );
   
       dogFind.length
@@ -36,33 +36,18 @@ export const dogsId =async (req: Request, res: Response) => {
 }
 
 export const dogPost = async (req: Request, res: Response) => {
-  const {
-    name,
-    weight_min,
-    weight_max,
-    height_min,
-    height_max,
-    life_span,
-    temperament,
-    image,
-  } = req.body;
+  const dogInput = req.body;
 
   const errors = validate(req.body);
   if (Object.keys(errors).length)
     res.status(500).json(errors)
 
   else{
-    const dogFormat = {
-      name,
-      height: `${height_min} - ${height_max}`,
-      weight: `${weight_min} - ${weight_max}`,
-      life_span,
-      image,
-    };
+    const dogNormalize = service.normalize(dogInput)
 
     try {
       const tempDb = await Temperament.findAll({
-        where: { name: temperament },
+        where: { name: dogInput.temperament },
       });
 
       if (!tempDb.length) {
@@ -70,8 +55,8 @@ export const dogPost = async (req: Request, res: Response) => {
       } 
 
       else {
-        const newDog = await Dog.create(dogFormat);
-        tempDb.forEach(temp => DogTemps.create({DogId: newDog.id, TemperamentId: temp.id}))
+        const newDog = await Dog.create(dogNormalize);
+        newDog.addTemperament(tempDb)
         res.send("Dog created! :)");
       }
     } catch (e) {
@@ -79,3 +64,33 @@ export const dogPost = async (req: Request, res: Response) => {
     }
   }
 }
+
+export const dogDelete = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const findDog = await Dog.findByPk(id);
+    findDog.destroy();
+    res.status(200).json("Dog deleted succesfully");
+  } catch (e) {
+    res.status(500).json({message: "Something is wrong :S", error: e});
+  }
+}
+
+export const filterCreated = async (req: Request, res: Response) => {
+  try {
+    const dbInfo = await service.getDBInfo();
+    res.status(200).send(dbInfo);
+  } catch (e) {
+    res.status(500).json({message: "Something is wrong :S", error: e});
+  }
+}
+
+export const filterApi = async (req: Request, res: Response) => {
+  try {
+    const apiInfo = await service.getApiInfo()
+    res.status(200).send(apiInfo);
+
+  } catch (e) {
+    res.status(500).json({message: "Something is wrong :S", error: e});
+  }
+};

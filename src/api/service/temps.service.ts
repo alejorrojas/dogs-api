@@ -1,4 +1,4 @@
-import Temperament from "../models/Temperament.js";
+import Temperament from "../../db/models/Temperament.js";
 import { getApiInfo } from "./dog.service.js";
 
 export const getTemperaments = async () => {

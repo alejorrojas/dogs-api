@@ -14,7 +14,7 @@ export interface DogOutput extends Required<DogAttributes> {
 }
 
 export interface TemperamentAttributes {
-    id: string
+    id: number
     name: string
 }
 
@@ -29,8 +29,6 @@ export interface DogTempsAttributes {
 
 export interface DogTempsInput extends Omit<DogTempsAttributes, "id"> {}
 export interface DogTempsOutput extends Required<DogTempsAttributes> {}
-
-
 
 
 
@@ -51,6 +49,16 @@ export interface DogNormalize extends DogAttributes{
     temperament: string[]
 }
 
+export interface DogCreate extends Omit<DogAttributes, "createdInDb" | "weight" | "height"> {
+    name: string,
+    weight_min: string,
+    weight_max: string,
+    height_min: string,
+    height_max: string,
+    life_span: string,
+    temperament: string[],
+    image: string
+}
 
 export interface Errors {
     url: string,
