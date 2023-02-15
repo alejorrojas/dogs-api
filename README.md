@@ -3,6 +3,8 @@
 # dogs-api
 An API based on the [Dogs API](https://thedogapi.com/) 🐕
 
+📌 See de client side integration on [Dogs Deck](https://dogs-deck.vercel.app/)
+
 ## Features 🐶
 - POST
 - DELETE
@@ -49,6 +51,6 @@ To run this project, you will need to add the following environment variables to
 `DB_PORT`
 `DB_USER`
 `DB_PASSWORD`
-
+`PORT`
 
 
