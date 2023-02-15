@@ -1,3 +1,5 @@
+<img src="https://raw.githubusercontent.com/alejorrojas/DogsDeck/master/client/src/assets/Header.png"/>
+
 # dogs-api
 An API based on the [Dogs API](https://thedogapi.com/) 🐕
 
